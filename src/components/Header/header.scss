@@ -1,0 +1,148 @@
+header {
+    padding: 20px 30px;
+
+    @media screen and (max-width: 500px) {
+        padding: 20px 20px;
+    }
+
+    hr {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .headerTop {
+        display: flex;
+        padding-bottom: 20px;
+        justify-content: space-between;
+        align-items: center;
+
+        a {
+            font-size: 32px;
+            font-weight: 400;
+            color: #000;
+            text-decoration: none;
+        }
+
+        .header-buttons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            @media screen and (max-width: 500px) {
+                gap: 10px;
+            }
+
+            a {
+                font-size: 24px;
+                transition: 0.7s;
+
+                &:hover {
+                    color: rgba(42, 37, 75, 0.8);
+                }
+
+                @media screen and (max-width: 500px) {
+                    font-size: 14px;
+                }
+            }
+
+            button {
+                color: #000;
+                border: 2px solid rgba(42, 37, 75, 1);
+
+                @media screen and (max-width: 500px) {
+                    font-size: 14px;
+                    padding: 8px 15px;
+                }
+
+                &:hover {
+                    background: rgba(42, 37, 75, 0.8);
+                }
+            }
+        }
+
+        svg {
+            display: none;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+
+            @media screen and (max-width: 800px) {
+                display: block;
+            }
+        }
+    }
+
+    nav {
+        padding-top: 20px;
+
+        @media screen and (max-width: 800px) {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 60%;
+            padding: 30px;
+            background-color: rgba(42, 37, 75, 0.9);
+            z-index: 50;
+            transform: translateX(-100%);
+            transition: 0.7s;
+        }
+
+        svg {
+            display: none;
+
+            @media screen and (max-width: 800px) {
+                display: block;
+                width: 28px;
+                height: 28px;
+                color: #fff;
+                cursor: pointer;
+                text-align: end;
+                position: absolute;
+                right: 25px;
+            }
+        }
+
+        ul {
+            display: flex;
+            justify-content: center;
+            gap: 44px;
+
+            @media screen and (max-width: 800px) {
+                flex-direction: column;
+                gap: 20px;
+                padding-top: 40px;
+            }
+
+            li {
+                list-style: none;
+
+                a {
+                    text-decoration: none;
+                    color: rgba(114, 110, 141, 1);
+                    font-size: 16px;
+                    font-family: "Ubuntu", sans-serif;
+                    font-weight: 400;
+                    transition: 0.7s;
+
+                    @media screen and (max-width: 800px) {
+                        font-size: 20px;
+                        color: #fff;
+                    }
+
+                    @media screen and (max-width: 500px) {
+                        font-size: 14px;
+                    }
+
+                    &:hover {
+                        color: rgba(42, 37, 75, 1);
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 800px) {
+        .active {
+            transform: none;
+        }
+    }
+}

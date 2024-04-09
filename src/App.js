@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/Header/header";
+import Projects from "./components/Projects/projects";
+import Footer from "./components/Footer/footer";
+import ApplicationPage from "./pages/applicationPage/applicationPage";
+import { RegisterPage } from "./pages/register-page/register-page";
+import { CalculatorPage } from "./pages/calculator-page/calculator-page";
+import { DetailPage } from "./pages/detail-page/detail-page";
+import Homepage from "./pages/homepage/homepage";
+import { useEffect } from "react";
+import { useLocation } from 'react-router-dom'
 
 function App() {
+
+  const location = useLocation();
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  useEffect(() => {
+    scrollToTop()
+  }, [location])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Routes location={location}>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/applicationPage" element={<ApplicationPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/calculator" element={<CalculatorPage />} />
+        <Route path="/detail-page" element={<DetailPage />} />
+        <Route path="/projects" element={<Projects />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }

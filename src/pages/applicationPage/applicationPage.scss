@@ -1,0 +1,85 @@
+.applicationPage {
+    padding: 30px 30px;
+    display: grid;
+    justify-content: center;
+    gap: 40px;
+
+    @media screen and (max-width: 500px) {
+        padding: 30px 20px;
+    }
+
+    .title {
+        display: grid;
+        gap: 20px;
+
+        span {
+            font-size: 36px;
+            font-weight: 500;
+            text-align: center;
+            
+            @media screen and (max-width: 500px) {
+                font-size: 24px;
+            }
+        }
+
+        p {
+            font-size: 16px;
+            font-weight: 400;
+            text-align: center;
+            line-height: 24px;
+
+            @media screen and (max-width: 800px) {
+                > br {
+                    display: none;
+                }
+            }
+
+            @media screen and (max-width: 500px) {
+                font-size: 14px;
+                line-height: 20px;
+            }
+        }
+    }
+
+    form {
+        display: grid;
+        gap: 20px;
+
+        div {
+            display: grid;
+            gap: 10px;
+
+            label {
+                font-size: 14px;
+                font-weight: 400;
+                opacity: 70%;
+
+                @media screen and (max-width: 500px) {
+                    font-size: 12px;
+                }
+            }
+
+            input {
+                border: none;
+                border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+                outline: none;
+                font-size: 16px;
+                font-weight: 400;
+                padding: 5px;
+            }
+
+            .error {
+                color: red;
+                font-size: 12px;
+            }
+        }
+
+        button {
+            background-color: rgba(42, 37, 75, 1);
+
+            &:hover {
+                background-color: rgba(42, 37, 75, 0.8);
+            }
+        }
+    }
+}
