@@ -30,7 +30,7 @@ export default function Header() {
                     <li><NavLink to=''>О компании</NavLink></li>
                     <li><NavLink to='/calculator'>Расчитать стоимость</NavLink></li>
                     <li><NavLink to='/applicationPage'>Оставить заявку</NavLink></li>
-                    <li><NavLink to=''>Контакты</NavLink></li>
+                    <li><NavLink to='/personalAccount'>Контакты</NavLink></li>
                 </ul>
             </nav>
         </header>

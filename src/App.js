@@ -9,6 +9,9 @@ import { DetailPage } from "./pages/detail-page/detail-page";
 import Homepage from "./pages/homepage/homepage";
 import { useEffect } from "react";
 import { useLocation } from 'react-router-dom'
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import PersonalAccount from "./pages/personalAccount-page/personalAccount-page";
 
 function App() {
 
@@ -22,7 +25,8 @@ function App() {
   }, [location])
 
   return (
-    <div className="App">
+    <Provider store={store}>
+      <div className="App">
       <Header />
       <Routes location={location}>
         <Route path="/" element={<Homepage />} />
@@ -31,9 +35,11 @@ function App() {
         <Route path="/calculator" element={<CalculatorPage />} />
         <Route path="/detail-page" element={<DetailPage />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/personalAccount" element={<PersonalAccount />} />
       </Routes>
       <Footer />
     </div>
+    </Provider>
   );
 }
 

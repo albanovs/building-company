@@ -26,7 +26,7 @@ function Login() {
         <div className='login'>
             <form action="" onSubmit={handleSubmit(onSubmit)}>
                 <div>
-                    <label htmlFor="">E-mail/ Телефон</label>
+                    <label htmlFor="">E-mail</label>
                     <input type="text"
                         {...register('name', {
                             required: true
