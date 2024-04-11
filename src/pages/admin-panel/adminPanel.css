@@ -1,0 +1,51 @@
+.nav {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  border-bottom: 3px solid rgba(42, 37, 75, 1);
+  margin: 0 auto;
+}
+
+.nav_btn {
+  color: black;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.catalog {
+  padding: 20px;
+}
+
+.catalog h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.catalog label {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.catalog input[type="text"],
+.catalog input[type="file"],
+.catalog textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.catalog input[type="file"] {
+  cursor: pointer;
+}
+
+.catalog input[type="text"]:focus,
+.catalog input[type="file"]:focus,
+.catalog textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

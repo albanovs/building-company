@@ -1,15 +1,14 @@
 import mongoose from 'mongoose';
 
 const projectSchema = new mongoose.Schema({
-    projectName: String,
     photo: String,
-    price: Number,
-    description: String,
+    projectName: String,
+    price: String,
     area: String,
     parameters: String,
     description: String
 });
 
-const User = mongoose.model('project', projectSchema);
+const Project = mongoose.model('project', projectSchema);
 
-export default User;
+export default Project;

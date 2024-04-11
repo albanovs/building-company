@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom'
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import PersonalAccount from "./pages/personalAccount-page/personalAccount-page";
+import AdminPanel from "./pages/admin-panel/adminPanel";
 
 function App() {
 
@@ -27,18 +28,19 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-      <Header />
-      <Routes location={location}>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/applicationPage" element={<ApplicationPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/calculator" element={<CalculatorPage />} />
-        <Route path="/detail-page" element={<DetailPage />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/personalAccount" element={<PersonalAccount />} />
-      </Routes>
-      <Footer />
-    </div>
+        <Header />
+        <Routes location={location}>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/applicationPage" element={<ApplicationPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/calculator" element={<CalculatorPage />} />
+          <Route path="/detail-page" element={<DetailPage />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/personalAccount" element={<PersonalAccount />} />
+          <Route path="/*" element={<AdminPanel />} />
+        </Routes>
+        <Footer />
+      </div>
     </Provider>
   );
 }
