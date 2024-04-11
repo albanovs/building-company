@@ -26,7 +26,7 @@ function Register() {
 
     const onSubmit = async (registerData) => {
         const registerDatas = {
-            names: registerData.name,
+            name: registerData.name,
             username: registerData.email,
             password: parseFloat(registerData.password)
         }
@@ -35,13 +35,12 @@ function Register() {
             await api.post('/register', registerDatas)
             console.log('success');
             setLoading(true)
+            alert('Вы зарегистрировались')
         } catch (error) {
             console.log(error);
         }
         // dispatch(postRegister(registerDatas))
         // console.log(registerData, 'register');
-        // alert('Вы зарегистрировались')
-        
         reset()
     }
 
@@ -59,7 +58,6 @@ function Register() {
                         {errors?.name && <p>Поле обязательно к заполнению</p>}
                     </div>
                 </div>
-
                 <div>
                     <label htmlFor="">E-mail</label>
                     <input type="email"
@@ -130,9 +128,7 @@ function Register() {
                     </div>
                 </div>
                 <div className='login-buttons'>
-                    <CardButton text={'Зарегистрироваться'}
-                    onClick= {loading ? 'Зарегистрироваться' : 'Загрузка...'} 
-                     />
+                    <CardButton text={loading ? 'Зарегистрироваться' : 'Загрузка...'} />
                 </div>
             </form>
         </div>

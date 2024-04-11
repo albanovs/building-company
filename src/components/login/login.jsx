@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
 import './login.scss'
 import { useForm } from 'react-hook-form';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import CardButton from '../Cards/CardButton/cardButton';
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { api } from '../../Api';
 
 function Login() {
 
     const [passwordEye, setPasswordEye] = useState(false);
 
+
+    const navigate = useNavigate()
     const {
         register,
         formState: { errors },
@@ -16,11 +19,23 @@ function Login() {
         reset
     } = useForm({})
 
-    const onSubmit = (loginData) => {
-        console.log(loginData, 'login');
-        alert('Вы вошли')
+    const onSubmit = async (loginData) => {
+        const loginDatas = {
+            username: loginData.name,
+            password: parseFloat(loginData.password)
+        }
+        try {
+            const response = await api.post('/login', loginDatas)
+            console.log(response.data);
+            console.log('success');
+            navigate('/personalAccount')
+        } catch (error) {
+            console.log(error);
+        }
         reset()
+        // console.log(loginData, 'login');
     }
+
 
     return (
         <div className='login'>

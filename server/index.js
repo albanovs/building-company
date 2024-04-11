@@ -31,8 +31,12 @@ app.post("/project", upload.single('photo'), async (req, res) => {
 
 app.post("/register", async (req, res) => {
     try {
-        const { username, names, password } = req.body;
-        const newUser = new User({ username, names, password });
+        const { username, name, password } = req.body;
+        const isUser = await User.findOne({ username });
+        if (isUser) {
+            return res.status(409).json({ error: "Пользователь с таким именем уже существует" });
+        }
+        const newUser = new User({ username, name, password });
         await newUser.save();
 
         res.status(201).json({ message: "Пользователь успешно зарегистрирован" });
@@ -49,7 +53,7 @@ app.post("/login", async (req, res) => {
         if (!user || user.password !== password) {
             return res.status(401).json({ error: "Invalid username or password" });
         }
-        res.status(200).json({ message: "Login successful" });
+        res.status(200).json({ message: user.name });
     } catch (error) {
         console.error("Error logging in:", error);
         res.status(500).json({ error: "Internal server error" });
