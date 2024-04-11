@@ -102,7 +102,8 @@ export const CalculatorPage = () => {
             client: clients,
             price: itogs,
             status: false,
-            num: numbers
+            num: numbers,
+            projectName: formData.buildingType
         };
 
         try {
@@ -111,6 +112,16 @@ export const CalculatorPage = () => {
         } catch (error) {
             console.error('Ошибка при отправке данных на сервер:', error);
         }
+
+        setFormData({
+            buildingType: '',
+            foundationType: '',
+            numberOfFloors: '',
+            area: '',
+            wallMaterial: '',
+            roofType: '',
+            numberOfRooms: ''
+        })
     };
 
 
@@ -192,9 +203,10 @@ export const CalculatorPage = () => {
                 <h1>Итог: {itogs} рублей</h1>
             </div>
             <button onClick={handleSubmit}>Расчитать</button>
-            <div>
-                <span>Введите ваш номер телефона:  <input type="text" onChange={(e) => setNumbers(e.target.value)} /></span>
-                <button onClick={setDatas}>Заказать</button>
+            <div className='order'>
+                <span>Введите ваш номер телефона: * </span>
+                <input name='phone' type="text" onChange={(e) => setNumbers(e.target.value)} />
+                <button disabled={!numbers} style={numbers !== '' ? {backgroundColor: 'green'} : {backgroundColor: 'red'}} onClick={setDatas}>Заказать</button>
             </div>
         </div>
     )
