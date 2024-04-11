@@ -1,9 +1,9 @@
 import React from 'react'
 import './cardButton.scss'
 
-function CardButton({text}) {
+function CardButton({ text, onClick }) {
   return (
-        <button className='card-button'>{text}</button>
+    <button onClick={onClick} className='card-button'>{text}</button>
   )
 }
 

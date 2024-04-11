@@ -39,8 +39,6 @@ function Register() {
         } catch (error) {
             console.log(error);
         }
-        // dispatch(postRegister(registerDatas))
-        // console.log(registerData, 'register');
         reset()
     }
 

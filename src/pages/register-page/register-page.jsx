@@ -12,7 +12,7 @@ export const RegisterPage = () => {
     return (
         <div className='register-page'>
             <div className='container'>
-                <h3>Личный кабинет</h3>
+                <h3>Авторизация</h3>
                 <div className="buttons">
                     <div
                         onClick={() => setIndex(1)}

@@ -10,7 +10,6 @@ function Login() {
 
     const [passwordEye, setPasswordEye] = useState(false);
 
-
     const navigate = useNavigate()
     const {
         register,
@@ -26,15 +25,14 @@ function Login() {
         }
         try {
             const response = await api.post('/login', loginDatas)
-            console.log(response.data);
-            console.log('success');
+            localStorage.setItem('responseData', response.data.message)
             navigate('/personalAccount')
         } catch (error) {
             console.log(error);
         }
         reset()
-        // console.log(loginData, 'login');
     }
+
 
 
     return (
