@@ -49,3 +49,146 @@
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
+.catalog .catalog_items img {
+  width: 200px;
+  height: 200px;
+}
+
+.catalog .catalog_items {
+  width: 300px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(42, 37, 75, 1);
+}
+
+.catalog .catalog_items > div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.catalog .catalog_items > div h2 {
+  font-size: 14px;
+  color: #4d4d4d;
+  font-weight: 500;
+}
+
+.catalog .catalog_items > div h1 {
+  text-align: center;
+}
+
+.catalog .catalog_items > div span {
+  font-size: 14px;
+  margin: 5px;
+  text-align: end;
+}
+
+.contain_catalog {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.catalog_button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.catalog_button button {
+  padding: 5px;
+  border: none;
+  border: 1px solid rgba(42, 37, 75, 1);
+  color: rgba(42, 37, 75, 1);
+  outline: none;
+  cursor: pointer;
+  background: none;
+  transition: 0.2s all;
+}
+
+.catalog_button button:hover {
+  background: rgba(42, 37, 75, 1);
+  color: white;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+}
+
+.modal h2 {
+  margin-bottom: 20px;
+}
+
+.modal label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.modal input,
+.modal textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.modal button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.modal button[type="submit"] {
+  background-color: #007bff;
+}
+
+.modal button[type="submit"]:hover,
+.modal button[type="button"]:hover {
+  background-color: #45a049;
+}
+
+.modal button[type="submit"]:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.modal button[type="submit"]:disabled:hover {
+  background-color: #cccccc;
+}
+
+.btn_logOut {
+  width: 100px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background-color: #293c7a;
+  color: white;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+
+.btn_logOut:hover{
+  opacity: 0.6;
+  transition: .2s;
+}

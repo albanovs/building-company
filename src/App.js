@@ -24,6 +24,7 @@ function App() {
   useEffect(() => {
     scrollToTop()
   }, [location])
+  
 
   return (
     <Provider store={store}>

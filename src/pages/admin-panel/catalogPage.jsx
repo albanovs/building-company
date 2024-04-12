@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { api } from '../../Api';
+import { MdDeleteForever } from "react-icons/md";
 
 export default function CatalogPage() {
     const [formData, setFormData] = useState({
@@ -33,7 +33,9 @@ export default function CatalogPage() {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        setFormData({ ...formData, photo: file });
+        const fileNameWithoutSpaces = file.name.replace(/\s/g, '');
+        const modifiedFile = new File([file], fileNameWithoutSpaces, { type: file.type });
+        setFormData({ ...formData, photo: modifiedFile });
     };
 
     const handleSubmit = async (e) => {
@@ -47,26 +49,54 @@ export default function CatalogPage() {
             formDataToSend.append('area', formData.area);
             formDataToSend.append('description', formData.description);
 
-            const response = await api.post('http://localhost:4000/projects', formDataToSend, {
+            await api.post('/projects', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-
-            console.log('Ответ от сервера:', response.data);
-            // Очистить форму после успешной отправки, если это нужно
-            // setFormData({
-            //     projectName: '',
-            //     parameters: '',
-            //     price: '',
-            //     area: '',
-            //     photo: null,
-            //     description: ''
-            // });
+            setFormData({
+                projectName: '',
+                parameters: '',
+                price: '',
+                area: '',
+                photo: null,
+                description: ''
+            });
         } catch (error) {
             console.error('Ошибка при отправке данных:', error);
         }
     };
+
+    const [showModal, setShowModal] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
+
+
+    const handleSubmitModal = async (e) => {
+        e.preventDefault();
+        try {
+            await api.patch(`/projects/${selectedItem._id}`, selectedItem);
+            setShowModal(false);
+            fetchData();
+        } catch (error) {
+            console.error('Ошибка при обновлении данных:', error);
+        }
+    };
+
+
+    const handleDelete = async (itemId) => {
+        try {
+            await api.delete(`/projects/${itemId}`);
+            fetchData();
+        } catch (error) {
+            console.error('Ошибка при удалении проекта:', error);
+        }
+    };
+
+    const handleEdit = (item) => {
+        setSelectedItem(item);
+        setShowModal(true);
+    };
+
 
 
     return (
@@ -101,17 +131,50 @@ export default function CatalogPage() {
                     <button type="submit">Отправить</button>
                 </form>
             </div>
-            <div>
+            <div className='contain_catalog'>
                 {datas.map(item => {
-                    const imageUrl = `${api.defaults.baseURL}/${item.photo}`
+                    const baseUrl = `${api.defaults.baseURL}/uploads/${item.photo}`
                     return (
-                        <div>
-                            <img src={imageUrl} alt="" />
-                            <p>{item.area}</p>
+                        <div className='catalog_items'>
+                            <img src={baseUrl} alt="" />
+                            <div>
+                                <h1>{item.projectName}</h1>
+                                <h2>{item.area}</h2>
+                                <span>Цена{item.price} рублей</span>
+                                <div className='catalog_button'>
+                                    <MdDeleteForever onClick={() => handleDelete(item._id)} color='red' size={30} />
+                                    <button onClick={() => handleEdit(item)}>Изменить</button>
+                                </div>
+                            </div>
                         </div>
                     )
                 })}
             </div>
+            {showModal && (
+                <div className="modal">
+                    <form onSubmit={handleSubmitModal}>
+                        <h2>Редактировать проект</h2>
+                        <label htmlFor="editName">Название:</label>
+                        <input type="text" id="editName" name="projectName" value={selectedItem.projectName} onChange={(e) => setSelectedItem({ ...selectedItem, projectName: e.target.value })} />
+
+                        <label htmlFor="editParameters">Параметры проекта:</label>
+                        <textarea id="editParameters" rows="4" name="parameters" value={selectedItem.parameters} onChange={(e) => setSelectedItem({ ...selectedItem, parameters: e.target.value })}></textarea>
+
+                        <label htmlFor="editDescription">Описание проекта:</label>
+                        <textarea id="editDescription" rows="4" name="description" value={selectedItem.description} onChange={(e) => setSelectedItem({ ...selectedItem, description: e.target.value })}></textarea>
+
+                        <label htmlFor="editPrice">Цена проекта:</label>
+                        <input type="text" id="editPrice" name="price" value={selectedItem.price} onChange={(e) => setSelectedItem({ ...selectedItem, price: e.target.value })} />
+
+                        <label htmlFor="editArea">Площадь:</label>
+                        <input type="text" id="editArea" name="area" value={selectedItem.area} onChange={(e) => setSelectedItem({ ...selectedItem, area: e.target.value })} />
+
+                        <button type="submit">Сохранить</button>
+                    </form>
+                    <button onClick={() => setShowModal(false)}>Закрыть</button>
+                </div>
+            )}
+
         </div>
     );
 }

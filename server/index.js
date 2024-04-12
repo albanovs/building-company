@@ -9,6 +9,7 @@ import Project from "./src/models/project.mjs";
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use('/uploads', express.static('uploads'));
 connect();
 
 const PORT = 4000;
@@ -105,7 +106,7 @@ app.post("/login", async (req, res) => {
     try {
         const { username, password } = req.body;
         const user = await User.findOne({ username });
-        if (!user || user.password !== password) {
+        if (!user || user.password != password) {
             return res.status(401).json({ error: "Invalid username or password" });
         }
         res.status(200).json({ message: user.name });
@@ -113,7 +114,35 @@ app.post("/login", async (req, res) => {
         console.error("Error logging in:", error);
         res.status(500).json({ error: "Internal server error" });
     }
+
 });
+
+app.delete("/users/:userId", async (req, res) => {
+    try {
+        const userId = req.params.userId;
+
+        const deletedUser = await User.findByIdAndDelete(userId);
+        if (!deletedUser) {
+            return res.status(404).json({ error: "Пользователь не найден" });
+        }
+
+        res.status(200).json({ message: "Пользователь успешно удален", deletedUser });
+    } catch (error) {
+        console.error("Ошибка при удалении пользователя:", error);
+        res.status(500).json({ error: "Внутренняя ошибка сервера" });
+    }
+});
+
+app.get("/users", async (req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).json(users);
+    } catch (error) {
+        console.error("Ошибка при получении пользователей:", error);
+        res.status(500).json({ error: "Внутренняя ошибка сервера" });
+    }
+});
+
 
 app.post("/projects", upload.single('photo'), async (req, res) => {
     try {
@@ -128,6 +157,33 @@ app.post("/projects", upload.single('photo'), async (req, res) => {
     }
 });
 
+app.patch("/projects/:projectId", upload.single('photo'), async (req, res) => {
+    try {
+        const projectId = req.params.projectId;
+        const { projectName, price, area, parameters, description } = req.body;
+
+        const project = await Project.findById(projectId);
+        if (!project) {
+            return res.status(404).json({ error: "Проект не найден" });
+        }
+
+        if (projectName) project.projectName = projectName;
+        if (price) project.price = price;
+        if (area) project.area = area;
+        if (parameters) project.parameters = parameters;
+        if (description) project.description = description;
+        if (req.file) project.photo = req.file.filename;
+
+        await project.save();
+
+        res.status(200).json({ message: "Данные проекта успешно обновлены", updatedProject: project });
+    } catch (error) {
+        console.error("Ошибка при обновлении данных проекта:", error);
+        res.status(500).json({ error: "Внутренняя ошибка сервера" });
+    }
+});
+
+
 app.get("/projects", async (req, res) => {
     try {
         const datas = await Project.find();
@@ -135,6 +191,22 @@ app.get("/projects", async (req, res) => {
     } catch (error) {
         console.error("Error saving project:", error);
         res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+app.delete("/projects/:projectId", async (req, res) => {
+    try {
+        const projectId = req.params.projectId;
+
+        const deletedProject = await Project.findByIdAndDelete(projectId);
+        if (!deletedProject) {
+            return res.status(404).json({ error: "Проект не найден" });
+        }
+
+        res.status(200).json({ message: "Проект успешно удален", deletedProject });
+    } catch (error) {
+        console.error("Ошибка при удалении проекта:", error);
+        res.status(500).json({ error: "Внутренняя ошибка сервера" });
     }
 });
 

@@ -1,15 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import { IoMenu, IoCloseOutline } from "react-icons/io5";
 import './header.scss'
 import CardButton from '../Cards/CardButton/cardButton';
 
 export default function Header() {
+    const [open, setOpen] = useState(false);
+    const name = localStorage.getItem('responseData') !== null ? localStorage.getItem('responseData') : "";
 
-    const [open, setOpen] = useState(false)
+    const handleToggle = () => {
+        setOpen(!open);
+    };
 
-    let toggleClass = open ? "active" : "";
-    const name = localStorage.getItem('responseData') !== null ? localStorage.getItem('responseData') : ""
+    const renderPersonalAccountLink = () => {
+        if (name && name !== 'admin') {
+            return <NavLink to='/personalAccount'><CardButton text='Личный кабинет' /></NavLink>;
+        } else if (name === 'admin') {
+            return <NavLink to='/admin'><CardButton text='Администратор' /></NavLink>;
+        } else {
+            return <NavLink to='/register'><CardButton text='Войти' /></NavLink>;
+        }
+    };
 
     return (
         <header>
@@ -17,15 +28,13 @@ export default function Header() {
                 <NavLink to='/'>Avion</NavLink>
                 <div className='header-buttons'>
                     <NavLink to={'tel:+7 (495) 461-00-99'}>+7 (495) 461-00-99</NavLink>
-                    <NavLink to={name ? '/personalAccount' : '/register'}><CardButton text={name ? 'Личный кабинет' : 'Войти'} /></NavLink>
+                    {renderPersonalAccountLink()}
                 </div>
-                <IoMenu onClick={() => setOpen(!open)} />
+                <IoMenu onClick={handleToggle} />
             </div>
             <hr />
-            <nav
-                className={` ${toggleClass}`}
-            >
-                <IoCloseOutline onClick={() => setOpen(!open)} />
+            <nav className={`${open ? "active" : ""}`}>
+                <IoCloseOutline onClick={handleToggle} />
                 <ul>
                     <li><NavLink to='/projects'>Наши работы</NavLink></li>
                     <li><NavLink to=''>О компании</NavLink></li>
@@ -35,5 +44,5 @@ export default function Header() {
                 </ul>
             </nav>
         </header>
-    )
+    );
 }

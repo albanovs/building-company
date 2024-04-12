@@ -3,8 +3,6 @@ import '../login/login.scss'
 import { useForm, Controller } from 'react-hook-form';
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import CardButton from '../Cards/CardButton/cardButton';
-import { postRegister } from '../../redux/slice/register-slice';
-import { useDispatch } from 'react-redux';
 import { api } from '../../Api';
 
 
@@ -13,7 +11,6 @@ function Register() {
     const [passwordEye1, setPasswordEye1] = useState(false);
     const [passwordEye2, setPasswordEye2] = useState(false);
     const [loading, setLoading] = useState(true);
-    const dispatch = useDispatch();
 
     const {
         register,
@@ -28,7 +25,7 @@ function Register() {
         const registerDatas = {
             name: registerData.name,
             username: registerData.email,
-            password: parseFloat(registerData.password)
+            password: registerData.password
         }
         setLoading(false)
         try {

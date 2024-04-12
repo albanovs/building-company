@@ -19,6 +19,8 @@ export default function OrderPageAdmin() {
         getDatas();
     }, []);
 
+    console.log(data);
+
     const handleStatusChange = async (id, newStatus) => {
         try {
             await api.patch(`/orders/${id}`, { status: newStatus });
@@ -62,7 +64,7 @@ export default function OrderPageAdmin() {
                             <td>{item.num}</td>
                             <td>{item.status ? "Окончен" : "В процессе"}</td>
                             <td>
-                                <button className='button' style={item.status ? { background: "red" } : { background: "45a049F" }} onClick={() => handleStatusChange(item._id, !item.status)}>
+                                <button className='button' style={item.status  ? { background: "#9a9e47" } : { background: "45a049F" }} onClick={() => handleStatusChange(item._id, !item.status)}>
                                     {item.status ? "В процессе" : "Окончен"}
                                 </button>
                             </td>
