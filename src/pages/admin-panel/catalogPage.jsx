@@ -140,7 +140,7 @@ export default function CatalogPage() {
                             <div>
                                 <h1>{item.projectName}</h1>
                                 <h2>{item.area}</h2>
-                                <span>Цена{item.price} рублей</span>
+                                <span>Цена {item.price} рублей</span>
                                 <div className='catalog_button'>
                                     <MdDeleteForever onClick={() => handleDelete(item._id)} color='red' size={30} />
                                     <button onClick={() => handleEdit(item)}>Изменить</button>

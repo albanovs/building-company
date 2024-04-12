@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './applicationPage.scss'
 import CardButton from '../../components/Cards/CardButton/cardButton'
 import { useForm } from 'react-hook-form'
 
 function ApplicationPage() {
+
+  const [open, setOpen] = useState(false);
 
   const {
     register,
@@ -13,9 +15,10 @@ function ApplicationPage() {
   } = useForm({})
 
   const onSubmit = (data) => {
-    window.location.href= 'mailto:mail@gmail.com?subject=Заявка на сайте&body=' + data
+    window.location.href = 'mailto:mail@gmail.com?subject=Заявка на сайте&body=' + data
     console.log(data, 'applicationPage');
     reset()
+    setOpen(!open)
   }
 
   return (
@@ -50,7 +53,7 @@ function ApplicationPage() {
         </div>
         <div>
           <label htmlFor="">Если у Вас есть проект/чертеж, загрузите его</label>
-          <input type="file" 
+          <input type="file"
             {...register('project', {})}
           />
         </div>
@@ -89,6 +92,15 @@ function ApplicationPage() {
         </div>
         <CardButton text={'Отправить'} />
       </form>
+      {open && (
+        <div className='modal'>
+          <div className='modal_content'>
+            <span>Заказ успешно оформлен!</span>
+            <p>Скоро мы с вами свяжемся.</p>
+            <CardButton text={'Закрыть'} onClick={() => setOpen(!open)} />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -16,6 +16,7 @@ export const CalculatorPage = () => {
     });
     const [itogs, setItogs] = useState("")
     const [numbers, setNumbers] = useState("")
+    const [open, setOpen] = useState(false);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -122,6 +123,7 @@ export const CalculatorPage = () => {
             roofType: '',
             numberOfRooms: ''
         })
+        setOpen(!open)
     };
 
 
@@ -206,8 +208,23 @@ export const CalculatorPage = () => {
             <div className='order'>
                 <span>Введите ваш номер телефона: * </span>
                 <input name='phone' type="text" onChange={(e) => setNumbers(e.target.value)} />
-                <button disabled={!numbers} style={numbers !== '' ? {backgroundColor: 'green'} : {backgroundColor: 'red'}} onClick={setDatas}>Заказать</button>
+                <button
+                    disabled={!numbers}
+                    style={numbers !== '' ? { backgroundColor: 'green' } : { backgroundColor: 'red' }}
+                    onClick={setDatas}
+                >
+                    Заказать
+                </button>
             </div>
+            {open && (
+                <div className='modal'>
+                    <div className='modal_content'>
+                        <span>Заказ успешно оформлен!</span>
+                        <p>Скоро мы с вами свяжемся.</p>
+                        <CardButton text={'Закрыть'} onClick={() => setOpen(!open)} />
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

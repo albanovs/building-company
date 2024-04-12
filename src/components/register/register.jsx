@@ -4,6 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import CardButton from '../Cards/CardButton/cardButton';
 import { api } from '../../Api';
+import { NavLink } from 'react-router-dom'
 
 
 function Register() {
@@ -11,6 +12,7 @@ function Register() {
     const [passwordEye1, setPasswordEye1] = useState(false);
     const [passwordEye2, setPasswordEye2] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [open, setOpen] = useState(false);
 
     const {
         register,
@@ -32,7 +34,7 @@ function Register() {
             await api.post('/register', registerDatas)
             console.log('success');
             setLoading(true)
-            alert('Вы зарегистрировались')
+            setOpen(!open)
         } catch (error) {
             console.log(error);
         }
@@ -126,6 +128,14 @@ function Register() {
                     <CardButton text={loading ? 'Зарегистрироваться' : 'Загрузка...'} />
                 </div>
             </form>
+            {open && (
+                <div className='modal'>
+                    <div className='modal_content'>
+                        <span>Вы успешно зарегистрировались!</span>
+                        <NavLink to={'/register'}><CardButton text={'Войти'} onClick={() => setOpen(!open)} /></NavLink>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import registerReducer from './slice/register-slice'
+import catalogSlice from "./slice/catalog-slice";
 
 export const store = configureStore({
     reducer: {
-        register: registerReducer
+         catalogSlice
     }
 })
