@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../../Api';
 import { MdDeleteForever } from "react-icons/md";
+import CardButton from '../../components/Cards/CardButton/cardButton'
 
 export default function CatalogPage() {
     const [formData, setFormData] = useState({
@@ -128,7 +129,7 @@ export default function CatalogPage() {
                         <label htmlFor="description">Описание проекта:</label>
                         <textarea id="description" autoComplete="off" rows="4" name="description" value={formData.description} onChange={handleInputChange}></textarea>
                     </div>
-                    <button type="submit">Отправить</button>
+                    <CardButton text={'Отправить'} style={{ background: "rgba(42, 37, 75, 1)" }} />
                 </form>
             </div>
             <div className='contain_catalog'>

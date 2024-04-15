@@ -39,8 +39,8 @@ export default function Header() {
                     <li><NavLink to='/projects'>Наши работы</NavLink></li>
                     <li><NavLink to=''>О компании</NavLink></li>
                     <li><NavLink to='/calculator'>Расчитать стоимость</NavLink></li>
-                    <li><NavLink to='/applicationPage'>Оставить заявку</NavLink></li>
-                    <li><NavLink to='/'>Контакты</NavLink></li>
+                    {/* <li><NavLink to='/applicationPage'>Оставить заявку</NavLink></li> */}
+                    <li><NavLink to='/contacts'>Контакты</NavLink></li>
                 </ul>
             </nav>
         </header>

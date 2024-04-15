@@ -13,6 +13,7 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import PersonalAccount from "./pages/personalAccount-page/personalAccount-page";
 import AdminPanel from "./pages/admin-panel/adminPanel";
+import ContactsPage from "./pages/contacts-page/contacts-page";
 
 function App() {
 
@@ -32,13 +33,14 @@ function App() {
         <Header />
         <Routes location={location}>
           <Route path="/" element={<Homepage />} />
-          <Route path="/applicationPage" element={<ApplicationPage />} />
+          {/* <Route path="/applicationPage" element={<ApplicationPage />} /> */}
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/calculator" element={<CalculatorPage />} />
-          <Route path="/detail-page" element={<DetailPage />} />
+          <Route path="/detail-page/:id" element={<DetailPage />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/personalAccount" element={<PersonalAccount />} />
           <Route path="/*" element={<AdminPanel />} />
+          <Route path="/contacts" element={<ContactsPage />} />
         </Routes>
         <Footer />
       </div>
