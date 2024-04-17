@@ -5,12 +5,16 @@ import User from "./src/models/User.mjs";
 import multer from "multer";
 import Orders from "./src/models/Order.mjs";
 import Project from "./src/models/project.mjs";
+import bodyParser from "body-parser";
+import nodemailer from 'nodemailer'
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use('/uploads', express.static('uploads'));
 connect();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const PORT = 4000;
 
@@ -208,6 +212,41 @@ app.delete("/projects/:projectId", async (req, res) => {
         console.error("Ошибка при удалении проекта:", error);
         res.status(500).json({ error: "Внутренняя ошибка сервера" });
     }
+});
+
+app.post('/send-email', (req, res) => {
+    const { name, term, area, floors, phone } = req.body;
+
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'your-email@gmail.com',
+            pass: 'your-email-password'
+        }
+    });
+
+    let mailOptions = {
+        from: 'your-email@gmail.com',
+        to: 'recipient-email@example.com',
+        subject: 'Заявка на сайте',
+        text: `
+        Имя: ${name}
+        Срок: ${term}
+        Площадь планируемого здания: ${area}
+        Количество этажей или пристроек: ${floors}
+        Телефон: ${phone}
+      `
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error(error);
+            res.status(500).send('Ошибка отправки письма');
+        } else {
+            console.log('Письмо успешно отправлено: ' + info.response);
+            res.status(200).send('Письмо успешно отправлено');
+        }
+    });
 });
 
 

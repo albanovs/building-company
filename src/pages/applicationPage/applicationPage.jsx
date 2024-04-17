@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './applicationPage.scss'
 import CardButton from '../../components/Cards/CardButton/cardButton'
 import { useForm } from 'react-hook-form'
+import { api } from '../../Api'
 
 function ApplicationPage() {
 
@@ -14,12 +15,16 @@ function ApplicationPage() {
     reset
   } = useForm({})
 
-  const onSubmit = (data) => {
-    window.location.href = 'mailto:mail@gmail.com?subject=Заявка на сайте&body=' + data
-    console.log(data, 'applicationPage');
-    reset()
-    setOpen(!open)
-  }
+
+  const onSubmit = async (data) => {
+    try {
+      await api.post('/send-email', data);
+      reset();
+      setOpen(!open);
+    } catch (error) {
+      console.error('Ошибка отправки данных на сервер:', error);
+    }
+  };
 
   return (
     <div className='applicationPage'>
@@ -50,12 +55,6 @@ function ApplicationPage() {
           <div className="error">
             {errors?.term && <p>Поле обязательно к заполнению</p>}
           </div>
-        </div>
-        <div>
-          <label htmlFor="">Если у Вас есть проект/чертеж, загрузите его</label>
-          <input type="file"
-            {...register('project', {})}
-          />
         </div>
         <div>
           <label htmlFor="">Площадь планируемого здания</label>
