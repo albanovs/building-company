@@ -35,7 +35,7 @@ function Projects() {
                                 <p>{item.price} руб.</p>
                             </div>
                             <div className='buttons'>
-                                <NavLink to={'/detail-page'}><CardButton text='ПОДРОБНЕЕ' /></NavLink>
+                                <NavLink to={`/detail-page/${item._id}`}><CardButton text='ПОДРОБНЕЕ' /></NavLink>
                                 <button><NavLink to={'/calculator'}>УЗНАТЬ СТОИМОСТЬ</NavLink></button>
                             </div>
                         </div>

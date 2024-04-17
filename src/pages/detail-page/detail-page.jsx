@@ -2,12 +2,17 @@ import React, { useEffect } from 'react'
 import './detail-page.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCatalog } from '../../redux/slice/catalog-slice'
+import { useParams } from 'react-router-dom'
+import { api } from '../../Api'
 
 export const DetailPage = () => {
 
+    const { id } = useParams()
+
     const dispatch = useDispatch()
     const datas = useSelector(state => state.catalogSlice)
-    console.log(datas, 'datas');
+
+    const filteredData = datas.catalog.filter(item => item._id == id)
 
     useEffect(() => {
         dispatch(getCatalog())
@@ -15,80 +20,29 @@ export const DetailPage = () => {
 
     return (
         <>
-            {datas.catalog.map((item) => (
-                <div className="detailPage" key={item.id}>
-                    <div className='images'>
-                        <div className='image'>
-                            <img src="https://optim.tildacdn.com/tild3438-6264-4332-b061-383638623030/-/format/webp/2.png" alt="image" />
+            {filteredData.map((item) => {
+                const baseURL = `${api.defaults.baseURL}/uploads/${item.photo}`
+                return (
+                    <div className="detailPage" key={item.id}>
+                        <div className='images'>
+                            <div className='image'>
+                                <img src={baseURL} alt="image" />
+                            </div>
+                        </div>
+                        <div className='content'>
+                            <div className='title'>
+                                <h3>{item.projectName}</h3>
+                                <b>Параметры проекта:</b>
+                                <p>{item.parameters}</p>
+                            </div>
+                            <div className='description'>
+                                <b>Описание проекта:</b>
+                                <p>{item.description}</p>
+                            </div>
                         </div>
                     </div>
-                    <div className='content'>
-                        <div className='title'>
-                            <h3>{item.projectName}</h3>
-                            <span>Параметры:</span>
-                            <p>{item.parameters}</p>
-                        </div>
-                        <div className='description'>
-                            <b>Описание проекта:</b>
-                            <p>{item.description}</p>
-                        </div>
-                        {/* <div className='text'>
-                            <b>Особенности дома:</b>
-                            <p>- Отмостка по периметру дома, <br />
-                                - Площадка для 2-х автомобилей, <br />
-                                - Водоснабжение и канализация в доме, <br />
-                                - Ламинированные окна толщиной 70 мм, <br />
-                                - Оригинальный дизайн строения, <br />
-                                - Чистовая отделка дома <br />
-                                - Собственная котельная</p>
-                            <b>Каждый проект рассчитывается индивидуально и полностью зависит от ваших предпочтений и пожеланий.</b>
-                        </div> */}
-                    </div>
-                </div>
-            ))}
+                )
+            })}
         </>
     )
 }
-
-const images = [
-    {
-        id: 1,
-        img: 'https://optim.tildacdn.com/tild3331-6537-4336-b135-643437313738/-/cover/120x120/center/center/-/format/webp/4.png'
-    },
-    {
-        id: 2,
-        img: 'https://optim.tildacdn.com/tild3438-6264-4332-b061-383638623030/-/format/webp/2.png'
-    },
-    {
-        id: 3,
-        img: 'https://optim.tildacdn.com/tild3331-6537-4336-b135-643437313738/-/cover/120x120/center/center/-/format/webp/4.png'
-    },
-    {
-        id: 4,
-        img: 'https://optim.tildacdn.com/tild3438-6264-4332-b061-383638623030/-/format/webp/2.png'
-    },
-    {
-        id: 5,
-        img: 'https://optim.tildacdn.com/tild3331-6537-4336-b135-643437313738/-/cover/120x120/center/center/-/format/webp/4.png'
-    },
-    {
-        id: 6,
-        img: 'https://optim.tildacdn.com/tild3331-6537-4336-b135-643437313738/-/cover/120x120/center/center/-/format/webp/4.png'
-    },
-    {
-        id: 7,
-        img: 'https://optim.tildacdn.com/tild3438-6264-4332-b061-383638623030/-/format/webp/2.png'
-    },
-    {
-        id: 8,
-        img: 'https://optim.tildacdn.com/tild3331-6537-4336-b135-643437313738/-/cover/120x120/center/center/-/format/webp/4.png'
-    },
-    {
-        id: 9,
-        img: 'https://optim.tildacdn.com/tild3438-6264-4332-b061-383638623030/-/format/webp/2.png'
-    },
-    {
-        id: 10,
-        img: 'https://optim.tildacdn.com/tild3331-6537-4336-b135-643437313738/-/cover/120x120/center/center/-/format/webp/4.png'
-    }
-]

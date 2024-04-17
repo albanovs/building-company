@@ -29,7 +29,7 @@ export default function UserPage() {
     };
 
     return (
-        <div>
+        <div className='user'>
             <h1>Пользователи</h1>
             <table>
                 <thead>
@@ -73,6 +73,21 @@ export default function UserPage() {
                 </div>
             )}
             <style jsx>{`
+                .user {
+                    padding: 30px 30px;
+
+                    @media screen and (max-width: 500px) {
+                        padding: 20px 20px;
+                    }
+                }
+                h1 {
+                    text-align: center;
+                    margin-bottom: 20px;
+
+                    @media screen and (max-width: 500px) {
+                        font-size: 24px;
+                    }
+                }
                 table {
                     width: 100%;
                     border-collapse: collapse;
@@ -96,6 +111,11 @@ export default function UserPage() {
                     padding: 8px 16px;
                     cursor: pointer;
                     transition: background-color 0.3s;
+
+                    @media screen and (max-width: 500px) {
+                        padding: 5px 10px;
+                        font-size: 10px;
+                    }
                 }
 
                 .delete-button:hover {
@@ -105,6 +125,7 @@ export default function UserPage() {
                 @media screen and (max-width: 600px) {
                     th, td {
                         padding: 8px;
+                        font-size: 12px;
                     }
                 }
 
