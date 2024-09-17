@@ -34,7 +34,7 @@ app.post("/orders", async (req, res) => {
         const { client, projectName, price, status, num, data } = req.body;
         const newProject = new Orders({ client, projectName, price, status, num, data });
         await newProject.save();
-        res.status(201).json({ message: `Проект успешно сохранен  ${JSON.stringify(newProject)}` });
+        res.status(201).json({ response: true, message: `Проект успешно сохранен  ${JSON.stringify(newProject)}` });
     } catch (error) {
         console.error("Error saving project:", error);
         res.status(500).json({ error: "Internal server error" });
